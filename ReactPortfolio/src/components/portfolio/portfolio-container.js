@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios'
 
 import PortfolioItem from "./portfolio-item"
 
@@ -12,15 +13,24 @@ export default class PortfolioContainer extends Component {
         this.state = {
             pageTitle: "Welcome to my Portfolio",
             isLoading: false,
-            data: [
-                { title: "Quip", category: "eCommerce", slug: 'quip' },
-                { title: "EventBrite", category: "Scheduling", slug: 'eventbrigte' },
-                { title: "Ministry Safe", category: "Enterprise", slug: 'ministry-safe' },
-                { title: "SwingAway", category: "eCommerce", slug: 'swingaway' }
-            ]
+            data: []
         }
         this.handleFilter = this.handleFilter.bind(this)
     }
+
+    getPortfolioItems() {
+        axios.get('https://gdfelt.devcamp.space/portfolio/portfolio_items')
+        .then(response => {
+          console.log(response);
+          this.setState({
+              data: response.data.portfolio_items
+          })
+        })
+        .catch(error => {
+          console.log(error);
+        })
+      }
+
 
     handleFilter(filter) {
         this.setState({
@@ -31,8 +41,15 @@ export default class PortfolioContainer extends Component {
     }
 
     portfolioItems() {
+        // Data that we'll need:
+        // - background image: thumb_image_url
+        // - logo
+        // - description: description
+        // - id: id
+        // ["id", "name", "description", "url", "category", "position", "thumb_image_url", "banner_image_url", "logo_url", "column_names_merged_with_images"]
         return this.state.data.map(item => {
-            return <PortfolioItem title={item.title} url={"google.com"} slug = {item.slug}/> // props are the names = value and are called in the item call
+            console.log("Portfolio Item", item)
+            return <PortfolioItem key={item.id} item={item}/> // props are the names = value and are called in the item call
         })
     }
 
@@ -42,11 +59,17 @@ export default class PortfolioContainer extends Component {
         })
     }
 
+    componentDidMount() {
+        this.getPortfolioItems();
+    }
 
     render() {
         if (this.state.isLoading) {
             return <div>Loading...</div>
         }
+
+        
+
         return (
             <div>
                 <h2>{this.state.pageTitle}</h2>
