@@ -67,6 +67,12 @@ export default class App extends Component {
     this.checkLoginStatus()
   }
 
+  authorizedPages() {
+    return [
+      <Route path="/blog" component={Blog} />
+    ]
+  }
+
   render() {
     return (
       <div className='container'>
@@ -89,7 +95,7 @@ export default class App extends Component {
               <Route exact path="/auth" component={Auth} />
               <Route path="/about-me" component={About} />
               <Route path="/contact" component={Contact} />
-              <Route path="/blog" component={Blog} />
+              {this.state.loggedInStatus === "LOGGED_IN" ? this.authorizedPages() : null}
               <Route exact path="/portfolio/:slug" component={PortfolioDetail} />
               <Route component={NoMatch} />
             </Switch>
