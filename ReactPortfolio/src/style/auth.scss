@@ -13,4 +13,9 @@
         align-items: center;
         background-color: $offwhite;
     }
+
+    .error-msg {
+        color: red;
+        font-weight: 500;
+    }
 }

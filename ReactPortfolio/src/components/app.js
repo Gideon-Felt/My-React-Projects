@@ -18,6 +18,26 @@ import NoMatch from './pages/no-match'
 export default class App extends Component {
   constructor() {
     super()
+
+    this.state = {
+      loggedInStatus: "NOT_LOGGED_IN"
+    }
+
+    this.handleSuccessfulLogin = this.handleSuccessfulLogin.bind(this)
+    this.handleUnsuccessfulLogin = this.handleUnsuccessfulLogin.bind(this)
+
+  }
+
+  handleSuccessfulLogin() {
+    this.setState({
+      loggedInStatus: "LOGGED_IN"
+    })
+  }
+
+  handleUnsuccessfulLogin() {
+    this.setState({
+      loggedInStatus: "NOT_LOGGED_IN"
+    })
   }
 
 
@@ -27,8 +47,18 @@ export default class App extends Component {
         <Router>
           <div>
             <NavigationContainer />
+            <h2>{this.state.loggedInStatus}</h2>
 
             <Switch>
+              <Route path="/auth"
+              render={props => (
+                <Auth 
+                {...props}
+                handleSuccessfulLogin={this.handleSuccessfulLogin}
+                handleUnsuccessfulLogin={this.handleUnsuccessfulLogin}
+                />
+              )}
+              />
               <Route exact path="/" component={Home} />
               <Route exact path="/auth" component={Auth} />
               <Route path="/about-me" component={About} />
