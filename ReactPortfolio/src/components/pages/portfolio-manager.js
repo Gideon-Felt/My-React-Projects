@@ -3,6 +3,7 @@ import axios from "axios";
 
 import PortfolioSidebarList from "../portfolio/portfolio-sidebar-list"
 import PortfolioForm from "../portfolio/portfolio-form"
+import PortfolioItem from "../portfolio/portfolio-item";
 
 
 export default class PortfolioManager extends Component {
@@ -10,8 +11,21 @@ export default class PortfolioManager extends Component {
     super();
 
     this.state = {
-      portfolioItems: []
+      portfolioItems: [],
+      portfolioToEdit: {}
     };
+  }
+
+  clearPortfolioToEdit = () => {
+    this.setState({
+      portfolioToEdit: {}
+    })
+  }
+
+  handleEditClick = PortfolioItem => {
+    this.setState({
+      portfolioToEdit: PortfolioItem
+    })
   }
 
   handleDeleteClick = (portfolioItem) => {
@@ -29,7 +43,11 @@ export default class PortfolioManager extends Component {
     })
   }
 
-  handleSuccessfulFormSubmission = (portfolioItem) => {
+  handleEditFormSubmission = () => {
+    this.getPortfolioItems()
+  }
+
+  handleNewSuccessfulFormSubmission = (portfolioItem) => {
     this.setState({
       portfolioItems: [portfolioItem].concat(this.state.portfolioItems)
     })
@@ -68,11 +86,21 @@ export default class PortfolioManager extends Component {
     return (
       <div className="portfolio-manager-wrapper">
         <div className="left-column">
-          <PortfolioForm  handleSuccessfulFormSubmission={this.handleSuccessfulFormSubmission} handleFormSubmissionError={this.handleFormSubmissionError}/>
+          <PortfolioForm 
+          handleNewSuccessfulFormSubmission={this.handleNewSuccessfulFormSubmission}
+          handleEditFormSubmission={this.handleEditFormSubmission}
+          handleFormSubmissionError={this.handleFormSubmissionError}
+          clearPortfolioToEdit={this.clearPortfolioToEdit}
+          portfolioToEdit={this.state.portfolioToEdit}
+          />
         </div>
 
         <div className="right-column">
-          <PortfolioSidebarList data={this.state.portfolioItems} handleDeleteClick={this.handleDeleteClick}/>
+          <PortfolioSidebarList
+          data={this.state.portfolioItems}
+          handleDeleteClick={this.handleDeleteClick}
+          handleEditClick={this.handleEditClick}
+          />
         </div>
       </div>
     );
