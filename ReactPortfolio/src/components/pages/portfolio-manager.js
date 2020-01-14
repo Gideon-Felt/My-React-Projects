@@ -4,6 +4,7 @@ import axios from "axios";
 import PortfolioSidebarList from "../portfolio/portfolio-sidebar-list"
 import PortfolioForm from "../portfolio/portfolio-form"
 
+
 export default class PortfolioManager extends Component {
   constructor() {
     super();
@@ -13,7 +14,25 @@ export default class PortfolioManager extends Component {
     };
   }
 
+  handleDeleteClick = (portfolioItem) => {
+    axios.delete(
+      `https://gdfelt.devcamp.space/portfolio/portfolio_items/${portfolioItem.id}`,
+    {withCredentials: true}
+    ).then(response => {
+      this.setState({
+        portfolioItems: this.state.portfolioItems.filter(item => {
+          return item.id !== portfolioItem.id
+        })
+      })
+    }).catch(error => {
+      console.log("handleDeleteClick error", error)
+    })
+  }
+
   handleSuccessfulFormSubmission = (portfolioItem) => {
+    this.setState({
+      portfolioItems: [portfolioItem].concat(this.state.portfolioItems)
+    })
     // TODO
     // update the portfolioItems State
     // and add the portfolioItem to the list
@@ -23,11 +42,11 @@ export default class PortfolioManager extends Component {
       console.log("handleFormSubmissionError Error", error)
   }
 
-  
+
 
   getPortfolioItems() {
     axios
-      .get("https://jordan.devcamp.space/portfolio/portfolio_items", {
+      .get("https://gdfelt.devcamp.space/portfolio/portfolio_items?order_by=created_at&direction=desc", {
         withCredentials: true
       })
       .then(response => {
@@ -53,7 +72,7 @@ export default class PortfolioManager extends Component {
         </div>
 
         <div className="right-column">
-          <PortfolioSidebarList data={this.state.portfolioItems}/>
+          <PortfolioSidebarList data={this.state.portfolioItems} handleDeleteClick={this.handleDeleteClick}/>
         </div>
       </div>
     );
