@@ -1,0 +1,30 @@
+.nav-bar {
+    height: 8vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: black;
+    color: white;
+
+    .desc-logo {
+        margin-left: 20px;
+    }
+
+    .nav-link-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+
+        .nav-button {
+            @include base-btn;
+            border-radius: 5px;
+        }
+    }
+
+    .user-space {
+        margin-right: 20px;
+        .nav-button {
+            @include base-btn;
+            border-radius: 5px;
+        }
+    }
+}

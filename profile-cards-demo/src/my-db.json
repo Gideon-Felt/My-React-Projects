@@ -1,0 +1,54 @@
+{
+    "users": [
+        {
+            "id": "1",
+            "name": "Gideon",
+            "description": "The King Pin",
+            "type": "Water",
+            "image_url": "https://source.unsplash.com/random",
+            "action": "use hydro-cannon"
+        },
+        {
+            "id": "2",
+            "name": "SempeRy",
+            "description": "Smacks all 'em wrost peeps.",
+            "type": "Fire",
+            "image_url": "https://source.unsplash.com/random",
+            "action": "use insinerate"
+        },
+        {
+            "id": "3",
+            "name": "Brian",
+            "description": "Cuts through all the stupidity",
+            "type": "Steal",
+            "image_url": "https://source.unsplash.com/random",
+            "action": "use laserate"
+        },
+        {
+            "id": "4",
+            "name": "Brenden",
+            "description": "Universal translator",
+            "type": "Ground",
+            "image_url": "https://source.unsplash.com/random",
+            "action": "use earthquake"
+        },
+        {
+            "id": "5",
+            "name": "Nathan",
+            "description": "Quiet assasin",
+            "type": "Stealth",
+            "image_url": "https://source.unsplash.com/random",
+            "action": "use silent death"
+        },
+        {
+            "id": "6",
+            "name": "Dallin",
+            "description": "Appears suddenly... unexplained",
+            "type": "Grass",
+            "image_url": "https://source.unsplash.com/random",
+            "action": "use meander"
+        }
+
+    ],
+    "currentUser": "Gideon Felt"
+}

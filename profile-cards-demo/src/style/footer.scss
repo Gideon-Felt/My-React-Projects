@@ -1,0 +1,29 @@
+
+.footer {
+    height: 15vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: black;
+    color: white;
+
+    .nav-link-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        .nav-button {
+            @include base-btn;
+            border-radius: 5px;
+        }
+    }
+
+    .copyright-footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 8vh;
+        width: 50vw;
+        border: 1px solid white;
+        border-radius: 4px;
+    }
+}

@@ -1,0 +1,28 @@
+@media (min-width: 1736px) {
+    .space-wrapper{
+        padding-bottom: 345px;
+    }
+}
+
+@media (max-width: 600px) {
+    .nav-bar {
+        overflow: hidden;
+
+        .logo-wrapper {
+            visibility: hidden;
+            height: 0px;
+            width: 0px
+        }
+        .nav-link{
+            .nav-button {
+                float: left;
+                display: flex;
+                flex-wrap: wrap;
+                color: white;
+                text-align: center;
+                text-decoration: none;
+                height: 20px;
+            }
+        }    
+    }
+}
