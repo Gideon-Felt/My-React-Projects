@@ -6,7 +6,7 @@ export default function Navbar() {
   const [users, setUsers ] = useState([])
 
     React.useEffect(() => {
-        axios.get("http://gdf-profile-card-flask-api.herokuapp.com/profiles")
+        axios.get("http://localhost:5000/profiles")
         .then(response => {
             setUsers(response.data)
             console.log(response)
