@@ -12,7 +12,7 @@ export default function CardSpace() {
     const [users, setUsers ] = useState([])
 
     React.useEffect(() => {
-        axios.get("http://localhost:5000/profiles")
+        axios.get("http://gdf-profile-card-flask-api.herokuapp.com/profiles")
         .then(response => {
             setUsers(response.data)
             console.log(response)
