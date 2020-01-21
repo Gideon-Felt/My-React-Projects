@@ -18,13 +18,21 @@ export default class PortfolioContainer extends Component {
         this.handleFilter = this.handleFilter.bind(this)
     }
 
-    getPortfolioItems() {
+    getPortfolioItems(filter = null) {
+        
         axios.get('https://gdfelt.devcamp.space/portfolio/portfolio_items')
         .then(response => {
-          console.log(response);
-          this.setState({
-              data: response.data.portfolio_items
-          })
+            if (filter) {
+                this.setState({
+                    data: this.state.data.filter(item => {
+                        return item.category === filter
+                    }) 
+                })
+            } else {
+                this.setState({
+                    data: response.data.portfolio_items
+                })
+            }
         })
         .catch(error => {
           console.log(error);
@@ -33,20 +41,14 @@ export default class PortfolioContainer extends Component {
 
 
     handleFilter(filter) {
-        this.setState({
-            data: this.state.data.filter(item => {
-                return item.category === filter
-            }) 
-        })
+        if (filter === "CLEAR_FILTERS") {
+            this.getPortfolioItems()
+        } else {
+            this.getPortfolioItems(filter)
+        }
     }
 
     portfolioItems() {
-        // Data that we'll need:
-        // - background image: thumb_image_url
-        // - logo
-        // - description: description
-        // - id: id
-        // ["id", "name", "description", "url", "category", "position", "thumb_image_url", "banner_image_url", "logo_url", "column_names_merged_with_images"]
         return this.state.data.map(item => {
             console.log("Portfolio Item", item)
             return <PortfolioItem key={item.id} item={item}/> // props are the names = value and are called in the item call
@@ -71,13 +73,15 @@ export default class PortfolioContainer extends Component {
         
 
         return (
-            <div className="portfolio-items-wrapper">
+            <div className="homepage-wrapper">
+                <div className="filter-links">
+                    <button className="btn" onClick={() => this.handleFilter('eCommerce')}>eCommerce</button>
+                    <button className="btn" onClick={() => this.handleFilter('Scheduling')}>Scheduling</button>
+                    <button className="btn" onClick={() => this.handleFilter('Enterprise')}>Enterprise</button>
+                    <button className="btn" onClick={() => this.handleFilter('CLEAR_FILTERS')}>All</button>
+                </div>
 
-                <button className="btn" onClick={() => this.handleFilter('eCommerce')}>eCommerce</button>
-                <button className="btn" onClick={() => this.handleFilter('Scheduling')}>Scheduling</button>
-                <button className="btn" onClick={() => this.handleFilter('Enterprise')}>Enterprise</button>
-
-                {this.portfolioItems()} 
+                <div className="portfolio-items-wrapper">{this.portfolioItems()}</div>
             </div>
         )
     }
